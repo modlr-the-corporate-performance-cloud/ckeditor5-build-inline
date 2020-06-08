@@ -5,6 +5,7 @@
 
 // The editor creator to use.
 import InlineEditorBase from '@ckeditor/ckeditor5-editor-inline/src/inlineeditor';
+import GFMDataProcessor from '@ckeditor/ckeditor5-markdown-gfm/src/gfmdataprocessor';
 
 import Essentials from '@ckeditor/ckeditor5-essentials/src/essentials';
 import UploadAdapter from '@ckeditor/ckeditor5-adapter-ckfinder/src/uploadadapter';
@@ -32,8 +33,14 @@ import TextTransformation from '@ckeditor/ckeditor5-typing/src/texttransformatio
 
 export default class InlineEditor extends InlineEditorBase {}
 
+// Simple plugin which loads the data processor
+function Markdown( editor ) {
+	editor.data.processor = new GFMDataProcessor( editor.editing.view.document );
+}
+
 // Plugins to include in the build.
 InlineEditor.builtinPlugins = [
+	Markdown,
 	Essentials,
 	UploadAdapter,
 	Autoformat,
